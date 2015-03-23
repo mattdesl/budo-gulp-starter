@@ -26,6 +26,7 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('./app'))
 })
 
+//the development task
 gulp.task('watch', ['sass'], function(cb) {
   //watch SASS
   gulp.watch('src/sass/*.scss', ['sass'])
@@ -51,6 +52,7 @@ gulp.task('watch', ['sass'], function(cb) {
   }).on('exit', cb)
 })
 
+//the distribution bundle task
 gulp.task('bundle', ['sass'], function() {
   var bundler = browserify(entry, { transform: transforms })
         .bundle()
