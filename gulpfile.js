@@ -3,7 +3,7 @@ var gulp = require('gulp')
 var sass = require('gulp-sass')
 var path = require('path')
 var argv = require('minimist')(process.argv.slice(2))
-var open = require('opn')
+var openURL = require('opn')
 var onChange = require('once-file-changes')
 var resetCSS = require('node-reset-scss').includePath
 
@@ -27,7 +27,7 @@ gulp.task('watch', ['sass'], function(cb) {
     verbose: true,         //verbose watchify logging
     dir: 'app',            //directory to serve
     plugin: 'errorify',    //display errors in browser
-    transform: 'babelify', //ES6 transpiler
+    transform: ['babelify', 'brfs'], //browserify transforms
     delay: 0,              //speed up watchify interval
     outfile: 'bundle.js'   //output bundle
   }).on('connect', function(info) {
@@ -36,7 +36,7 @@ gulp.task('watch', ['sass'], function(cb) {
     //open the browser
     if (argv.open || argv.o) {
       onChange(info.output.glob, function() {
-        open(info.uri)
+        openURL(info.uri)
       })
     }
   }).on('exit', cb)

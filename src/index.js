@@ -1,4 +1,5 @@
-var domify = require('domify')
+const domify = require('domify')
+const fs = require('fs')
 
 require('domready')(() => {
   let list = [
@@ -12,7 +13,11 @@ require('domready')(() => {
    .join('\n')
 
   list = domify(`
-    <p>Features:</p>
+    <p>workflow</p>
     <ul>${list}</ul>`)
   document.body.appendChild(list)
+
+  //show canvas demo
+  let context = require('./canvas')()
+  document.body.appendChild(context.canvas)
 })

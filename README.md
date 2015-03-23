@@ -1,12 +1,43 @@
+## In Development :construction:
+
+The [feature/gulp](https://github.com/mattdesl/budo/tree/feature/gulp) branch of budo is currently in development and review. Soon it should be part of master.
+
 # budo-starter-kit
 
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 
-a starter kit with Budo, LESS and Gulp
+A "starter kit" with [budō](https://github.com/mattdesl/budo), SASS, and Gulp. The aim is rapid iteration and a tight feedback loop. Could be augmented with VueJS, React, or any frameworks that work in browserify.
+
+Some highlights:
+
+  - npm dependencies with browserify
+  - fast incremental bundling with watchify
+  - SASS for CSS pre-processing
+  - LiveReload browser refresh on `bundle.js` update
+  - LiveReload CSS injection on *.scss changes
+  - Babel for ES6 transpiling
+  - Syntax errors shown in the browser during development
+
+Note that budō is not tied to Gulp, and in some cases it may be easier to use it's command-line version. 
 
 ## Usage
 
-[![NPM](https://nodei.co/npm/budo-starter-kit.png)](https://www.npmjs.com/package/budo-starter-kit)
+```sh
+git clone https://github.com/mattdesl/budo-starter-kit.git
+cd budo-starter-kit
+
+# install dependencies
+npm install
+
+# start development server
+npm start
+```
+
+This should run the watch server and open `localhost:9966` in your default browser. Changes to `src/index.js` will trigger a incremental bundle and page reload. Changes to `src/sass/main.scss` will cause CSS injection without losing application state. 
+
+Syntax errors are overlayed in the browser with a custom style:
+
+![img](http://i.imgur.com/dP7lH7N.png) 
 
 ## License
 

@@ -37,6 +37,9 @@ body {
   background: #eee;
   font-family: 'Helvetica', sans-serif; }
 
+canvas {
+  opacity: 0.25; }
+
 p {
   font-size: 20px;
   border-bottom: 3px solid rgba(64, 64, 64, 0.05);
