@@ -2,7 +2,7 @@
 
 The [feature/gulp](https://github.com/mattdesl/budo/tree/feature/gulp) branch of budo is currently in development and review. Soon it should be part of master.
 
-# budo-starter-kit
+# budo-gulp-starter
 
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 
@@ -23,8 +23,8 @@ Note that budō is not tied to Gulp, and in some cases it may be easier to use i
 ## Usage
 
 ```sh
-git clone https://github.com/mattdesl/budo-starter-kit.git
-cd budo-starter-kit
+git clone https://github.com/mattdesl/budo-gulp-starter.git
+cd budo-gulp-starter
 
 # install dependencies
 npm install
@@ -41,4 +41,4 @@ Syntax errors are overlayed in the browser with a custom style:
 
 ## License
 
-MIT, see [LICENSE.md](http://github.com/mattdesl/budo-starter-kit/blob/master/LICENSE.md) for details.
+MIT, see [LICENSE.md](http://github.com/mattdesl/budo-gulp-starter/blob/master/LICENSE.md) for details.

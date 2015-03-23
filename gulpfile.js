@@ -1,11 +1,20 @@
-var budo = require('budo')
-var gulp = require('gulp')
-var sass = require('gulp-sass')
-var path = require('path')
-var argv = require('minimist')(process.argv.slice(2))
-var openURL = require('opn')
-var onChange = require('once-file-changes')
-var resetCSS = require('node-reset-scss').includePath
+const argv = require('minimist')(process.argv.slice(2))
+const openURL = require('opn')
+const onChange = require('once-file-changes')
+
+const gulp = require('gulp')
+const sass = require('gulp-sass')
+const uglify = require('gulp-uglify')
+const rename = require('gulp-rename')
+const streamify = require('gulp-streamify')
+const source = require('vinyl-source-stream')
+
+const budo = require('budo')
+const browserify = require('browserify')
+const resetCSS = require('node-reset-scss').includePath
+
+const entry = './src/index.js'
+const transforms = ['babelify', 'brfs']
 
 //our CSS pre-processor
 gulp.task('sass', function() {
@@ -27,7 +36,7 @@ gulp.task('watch', ['sass'], function(cb) {
     verbose: true,         //verbose watchify logging
     dir: 'app',            //directory to serve
     plugin: 'errorify',    //display errors in browser
-    transform: ['babelify', 'brfs'], //browserify transforms
+    transform: transforms, //browserify transforms
     delay: 0,              //speed up watchify interval
     outfile: 'bundle.js'   //output bundle
   }).on('connect', function(info) {
@@ -40,4 +49,14 @@ gulp.task('watch', ['sass'], function(cb) {
       })
     }
   }).on('exit', cb)
+})
+
+gulp.task('bundle', ['sass'], function() {
+  var bundler = browserify(entry, { transform: transforms })
+        .bundle()
+  return bundler
+    .pipe(source('index.js'))
+    .pipe(streamify(uglify()))
+    .pipe(rename('bundle.js'))
+    .pipe(gulp.dest('./app'))
 })
