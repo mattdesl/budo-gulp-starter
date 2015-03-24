@@ -33,14 +33,14 @@ gulp.task('watch', ['sass'], function(cb) {
   gulp.watch('src/sass/*.scss', ['sass'])
 
   //dev server
-  budo('./src/index.js', {
+  budo(entry, {
     live: true,            //live reload & CSS injection
     verbose: true,         //verbose watchify logging
     dir: 'app',            //directory to serve
     plugin: 'errorify',    //display errors in browser
     transform: transforms, //browserify transforms
     delay: 0,              //speed up watchify interval
-    outfile: 'bundle.js'   //output bundle
+    outfile: 'bundle.js'   //output bundle relative to dir
   }).on('connect', function(info) {
     console.log("Server running on", info.uri)
     
