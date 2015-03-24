@@ -12,7 +12,6 @@
   "dependencies": {
     "2d-context": "^1.2.0",
     "array-range": "^1.0.1",
-    "brfs": "^1.4.0",
     "bunny": "^1.0.1",
     "canvas-fit": "^1.2.0",
     "delaunay-triangulate": "^1.1.6",

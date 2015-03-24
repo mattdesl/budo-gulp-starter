@@ -1,5 +1,4 @@
 const domify = require('domify')
-const fs = require('fs')
 
 require('domready')(() => {
   //show canvas demo
