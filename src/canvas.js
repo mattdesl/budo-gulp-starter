@@ -84,7 +84,7 @@ module.exports = function() {
         sub(tmp, position, origin)
         normalize(tmp, tmp)
         mult(velocity, tmp, [ push, push ])
-      }, 2000 + i*2)
+      }, 500 + i*2)
 
       return {
         radius: rand(1, 7),
