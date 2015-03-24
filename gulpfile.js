@@ -21,6 +21,7 @@ gulp.task('sass', function() {
   gulp.src('./src/sass/main.scss')
     .pipe(sass({ 
       errLogToConsole: true,
+      outputStyle: argv.production ? 'compressed' : undefined,
       includePaths: [ resetCSS ] 
     }))
     .pipe(gulp.dest('./app'))
