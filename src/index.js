@@ -2,6 +2,12 @@ const domify = require('domify')
 const fs = require('fs')
 
 require('domready')(() => {
+  //show canvas demo
+  let context = require('./canvas')()
+  document.body.appendChild(context.canvas)
+
+  //show copy
+  let url = 'https://github.com/mattdesl/budo-gulp-starter'
   let list = [
     'npm dependencies with browserify',
     'incremental bundling with watchify',
@@ -14,10 +20,7 @@ require('domready')(() => {
 
   list = domify(`
     <p>workflow</p>
-    <ul>${list}</ul>`)
+    <ul>${list}</ul>
+    <a href="${url}">[source]</a>`)
   document.body.appendChild(list)
-
-  //show canvas demo
-  let context = require('./canvas')()
-  document.body.appendChild(context.canvas)
 })
