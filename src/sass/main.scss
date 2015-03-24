@@ -1,5 +1,7 @@
 @import "reset";
 
+$gray: hsla(0, 0%, 25%, 0.05);
+
 body {
   color: #1d1d1d;
   padding: 30px;
@@ -9,11 +11,44 @@ body {
 
 canvas {
   opacity: 0.25;
+  pointer-events: none;
+}
+
+a {
+  color: #af2626;
+  font-size: 14px;
+  margin-top: 10px;
+  display: inline-block;
+  text-decoration: none;
+  padding: 5px;
+  
+
+  &:after {
+    content: ' ';
+    display: block;
+    width: 100%;
+    height: 0px;
+    background: $gray;
+    position: relative;
+    top: 2px; left: 0;
+    -webkit-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    -ms-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+  }
+
+  &:hover {
+    &:after {
+      top: 3px;
+      height: 6px;
+    }
+  }
 }
 
 p {
   font-size: 20px;
-  border-bottom: 3px solid hsla(0, 0%, 25%, 0.05);
+  border-bottom: 3px solid $gray;
   display: inline;
   font-weight: bold;
 }
@@ -21,7 +56,6 @@ p {
 ul {
   padding-top: 20px;
   padding-left: 20px;
-
   li {
     padding-bottom: 5px;
   }
