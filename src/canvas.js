@@ -2,7 +2,6 @@ const rand = require('randf')
 const range = require('array-range')
 const triangulate = require('delaunay-triangulate')
 const drawTriangles = require('draw-triangles-2d')
-const friction = 0.99
 const bunny = require('bunny')
 const loop = require('raf-loop')
 
@@ -10,6 +9,8 @@ const loop = require('raf-loop')
 const normalize = require('gl-vec2/normalize')
 const sub = require('gl-vec2/subtract')
 const mult = require('gl-vec2/multiply')
+
+const friction = 0.99
 
 module.exports = function() {
   const ctx = require('2d-context')()
@@ -69,6 +70,7 @@ module.exports = function() {
     let tmp = [0, 0]
     let origin = [ width/2, height/2 ]
     let scale = 50
+    
     //take some XY positions from the 3D bunny mesh
     return bunny.positions.map((x, i) => {
       let f = 0.15

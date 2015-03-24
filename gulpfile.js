@@ -14,13 +14,14 @@ const browserify = require('browserify')
 const resetCSS = require('node-reset-scss').includePath
 
 const entry = './src/index.js'
-const transforms = ['babelify', 'brfs']
+const transforms = ['babelify']
 
 //our CSS pre-processor
 gulp.task('sass', function() {
   gulp.src('./src/sass/main.scss')
     .pipe(sass({ 
       errLogToConsole: true,
+      outputStyle: argv.production ? 'compressed' : undefined,
       includePaths: [ resetCSS ] 
     }))
     .pipe(gulp.dest('./app'))
