@@ -8,6 +8,8 @@ The [feature/gulp](https://github.com/mattdesl/budo/tree/feature/gulp) branch of
 
 A "starter kit" with [budō](https://github.com/mattdesl/budo), SASS, and Gulp. The aim is rapid iteration and a tight feedback loop. Could be augmented with VueJS, React, or any frameworks that work in browserify.
 
+[[demo]](http://mattdesl.github.io/budo-gulp-starter/app/)
+
 Some highlights:
 
   - npm dependencies with browserify
