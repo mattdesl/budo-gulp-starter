@@ -46,7 +46,7 @@ gulp.task('watch', ['sass'], function(cb) {
     
     //open the browser
     if (argv.open || argv.o) {
-      onChange(info.output.glob, function() {
+      onChange(info.glob, function() {
         openURL(info.uri)
       })
     }
