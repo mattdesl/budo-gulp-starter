@@ -25,7 +25,7 @@
   "devDependencies": {
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
-    "budo": "git://github.com/mattdesl/budo#feature/gulp",
+    "budo": "^2.0.1",
     "errorify": "^0.2.0",
     "garnish": "^2.1.1",
     "gulp": "^3.8.11",

@@ -41,13 +41,15 @@ gulp.task('watch', ['sass'], function(cb) {
     transform: transforms, //browserify transforms
     delay: 0,              //speed up watchify interval
     outfile: 'bundle.js'   //output bundle relative to dir
-  }).on('connect', function(info) {
-    console.log("Server running on", info.uri)
+  }).on('connect', function(ev) {
+    console.log("Server running on", ev.uri)
     
     //open the browser
     if (argv.open || argv.o) {
-      onChange(info.glob, function() {
-        openURL(info.uri)
+      //we could also listen for budo.on('watch') 
+      //events to achieve this
+      onChange(ev.glob, function() {
+        openURL(ev.uri)
       })
     }
   }).on('exit', cb)

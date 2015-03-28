@@ -1,7 +1,3 @@
-## In Development :construction:
-
-The [feature/gulp](https://github.com/mattdesl/budo/tree/feature/gulp) branch of budo is currently in development and review. Soon it should be part of master.
-
 # budo-gulp-starter
 
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
