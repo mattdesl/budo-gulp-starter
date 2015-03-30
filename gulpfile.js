@@ -1,6 +1,7 @@
 const argv = require('minimist')(process.argv.slice(2))
 const openURL = require('opn')
-const onChange = require('once-file-changes')
+const path = require('path')
+const once = require('once')
 
 const gulp = require('gulp')
 const sass = require('gulp-sass')
@@ -15,6 +16,7 @@ const resetCSS = require('node-reset-scss').includePath
 
 const entry = './src/index.js'
 const transforms = ['babelify']
+const outfile = 'bundle.js'
 
 //our CSS pre-processor
 gulp.task('sass', function() {
@@ -32,6 +34,8 @@ gulp.task('watch', ['sass'], function(cb) {
   //watch SASS
   gulp.watch('src/sass/*.scss', ['sass'])
 
+  var ready = function(){}
+  
   //dev server
   budo(entry, {
     live: true,            //live reload & CSS injection
@@ -40,19 +44,20 @@ gulp.task('watch', ['sass'], function(cb) {
     plugin: 'errorify',    //display errors in browser
     transform: transforms, //browserify transforms
     delay: 0,              //speed up watchify interval
-    outfile: 'bundle.js'   //output bundle relative to dir
-  }).on('connect', function(ev) {
+    outfile: outfile       //output bundle relative to dir
+  })
+  .on('exit', cb)
+  .on('connect', function(ev) {
     console.log("Server running on", ev.uri)
-    
+    ready = once(openURL.bind(null, ev.uri))
+  })
+  .on('watch', function(type, file) {
+    var open = argv.open || argv.o
     //open the browser
-    if (argv.open || argv.o) {
-      //we could also listen for budo.on('watch') 
-      //events to achieve this
-      onChange(ev.glob, function() {
-        openURL(ev.uri)
-      })
+    if (path.basename(file) === outfile && open) {
+      ready()
     }
-  }).on('exit', cb)
+  })
 })
 
 //the distribution bundle task
@@ -62,6 +67,6 @@ gulp.task('bundle', ['sass'], function() {
   return bundler
     .pipe(source('index.js'))
     .pipe(streamify(uglify()))
-    .pipe(rename('bundle.js'))
+    .pipe(rename(outfile))
     .pipe(gulp.dest('./app'))
 })
