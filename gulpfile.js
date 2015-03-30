@@ -53,8 +53,9 @@ gulp.task('watch', ['sass'], function(cb) {
   })
   .on('watch', function(type, file) {
     var open = argv.open || argv.o
+
     //open the browser
-    if (path.basename(file) === outfile && open) {
+    if (open && path.basename(file) === outfile) {
       ready()
     }
   })
