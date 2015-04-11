@@ -1,6 +1,5 @@
 const argv = require('minimist')(process.argv.slice(2))
 const openURL = require('opn')
-const path = require('path')
 const once = require('once')
 
 const gulp = require('gulp')
@@ -13,6 +12,7 @@ const source = require('vinyl-source-stream')
 const budo = require('budo')
 const browserify = require('browserify')
 const resetCSS = require('node-reset-scss').includePath
+const garnish = require('garnish')
 
 const entry = './src/index.js'
 const transforms = ['babelify']
@@ -35,27 +35,27 @@ gulp.task('watch', ['sass'], function(cb) {
   gulp.watch('src/sass/*.scss', ['sass'])
 
   var ready = function(){}
-  
+  var pretty = garnish()
+  pretty.pipe(process.stdout)
+
   //dev server
   budo(entry, {
+    delay: 0,
+    serve: 'bundle.js',    //end point for our <script> tag
+    stream: pretty,        //pretty-print requests
     live: true,            //live reload & CSS injection
     verbose: true,         //verbose watchify logging
     dir: 'app',            //directory to serve
     plugin: 'errorify',    //display errors in browser
     transform: transforms, //browserify transforms
-    delay: 0,              //speed up watchify interval
-    outfile: outfile       //output bundle relative to dir
   })
   .on('exit', cb)
   .on('connect', function(ev) {
-    console.log("Server running on", ev.uri)
     ready = once(openURL.bind(null, ev.uri))
   })
-  .on('watch', function(type, file) {
-    var open = argv.open || argv.o
-
+  .once('update', function() {
     //open the browser
-    if (open && path.basename(file) === outfile) {
+    if (argv.open) {
       ready()
     }
   })
