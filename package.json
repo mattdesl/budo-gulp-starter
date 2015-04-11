@@ -44,6 +44,7 @@
     "test": "node test.js",
     "open": "gulp watch --open",
     "start": "gulp watch",
+    "raw": "watchify src/index.js -o app/bundle.js -v --delay=0 -t babelify",
     "build": "gulp bundle --production"
   },
   "keywords": [

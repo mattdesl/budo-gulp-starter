@@ -15,7 +15,7 @@ const resetCSS = require('node-reset-scss').includePath
 const garnish = require('garnish')
 
 const entry = './src/index.js'
-const transforms = ['babelify']
+const transforms = [require('babelify')]
 const outfile = 'bundle.js'
 
 //our CSS pre-processor
