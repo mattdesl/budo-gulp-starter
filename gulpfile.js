@@ -13,9 +13,12 @@ const budo = require('budo')
 const browserify = require('browserify')
 const resetCSS = require('node-reset-scss').includePath
 const garnish = require('garnish')
+const babelify = require('babelify')
 
 const entry = './src/index.js'
-const transforms = [require('babelify')]
+const transforms = [ babelify.configure({
+  only: /src/
+}) ]
 const outfile = 'bundle.js'
 
 //our CSS pre-processor

@@ -23,7 +23,7 @@
     "randf": "^1.0.0"
   },
   "devDependencies": {
-    "babelify": "^5.0.4",
+    "babelify": "^6.0.2",
     "browserify": "^9.0.3",
     "budo": "^2.1.0",
     "errorify": "^0.2.0",
