@@ -40,7 +40,6 @@ gulp.task('watch', ['sass'], function(cb) {
 
   //dev server
   budo(entry, {
-    delay: 0,
     serve: 'bundle.js',    //end point for our <script> tag
     stream: pretty,        //pretty-print requests
     live: true,            //live reload & CSS injection
