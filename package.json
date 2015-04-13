@@ -25,8 +25,8 @@
   "devDependencies": {
     "babelify": "^6.0.2",
     "browserify": "^9.0.3",
-    "budo": "^2.1.0",
-    "errorify": "^0.2.0",
+    "budo": "^3.0.2",
+    "errorify": "^0.2.4",
     "garnish": "^2.1.2",
     "gulp": "^3.8.11",
     "gulp-rename": "^1.2.0",
@@ -44,7 +44,6 @@
     "test": "node test.js",
     "open": "gulp watch --open",
     "start": "gulp watch",
-    "raw": "watchify src/index.js -o app/bundle.js -v --delay=0 -t babelify",
     "build": "gulp bundle --production"
   },
   "keywords": [

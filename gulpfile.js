@@ -16,9 +16,6 @@ const garnish = require('garnish')
 const babelify = require('babelify')
 
 const entry = './src/index.js'
-const transforms = [ babelify.configure({
-  only: /src/
-}) ]
 const outfile = 'bundle.js'
 
 //our CSS pre-processor
@@ -45,11 +42,11 @@ gulp.task('watch', ['sass'], function(cb) {
   budo(entry, {
     serve: 'bundle.js',    //end point for our <script> tag
     stream: pretty,        //pretty-print requests
-    live: true,            //live reload & CSS injection
+    livePlugin: true,            //live reload & CSS injection
     verbose: true,         //verbose watchify logging
     dir: 'app',            //directory to serve
+    transform: 'babelify', //browserify transforms
     plugin: 'errorify',    //display errors in browser
-    transform: transforms, //browserify transforms
   })
   .on('exit', cb)
   .on('connect', function(ev) {
@@ -65,7 +62,7 @@ gulp.task('watch', ['sass'], function(cb) {
 
 //the distribution bundle task
 gulp.task('bundle', ['sass'], function() {
-  var bundler = browserify(entry, { transform: transforms })
+  var bundler = browserify(entry, { transform: babelify() })
         .bundle()
   return bundler
     .pipe(source('index.js'))
