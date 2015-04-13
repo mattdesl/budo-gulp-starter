@@ -14,6 +14,7 @@ const browserify = require('browserify')
 const resetCSS = require('node-reset-scss').includePath
 const garnish = require('garnish')
 const babelify = require('babelify')
+const errorify = require('errorify')
 
 const entry = './src/index.js'
 const outfile = 'bundle.js'
@@ -42,11 +43,11 @@ gulp.task('watch', ['sass'], function(cb) {
   budo(entry, {
     serve: 'bundle.js',    //end point for our <script> tag
     stream: pretty,        //pretty-print requests
-    livePlugin: true,            //live reload & CSS injection
+    live: true,            //live reload & CSS injection
     verbose: true,         //verbose watchify logging
     dir: 'app',            //directory to serve
-    transform: 'babelify', //browserify transforms
-    plugin: 'errorify',    //display errors in browser
+    transform: babelify,   //browserify transforms
+    plugin: errorify       //display errors in browser
   })
   .on('exit', cb)
   .on('connect', function(ev) {
@@ -62,7 +63,7 @@ gulp.task('watch', ['sass'], function(cb) {
 
 //the distribution bundle task
 gulp.task('bundle', ['sass'], function() {
-  var bundler = browserify(entry, { transform: babelify() })
+  var bundler = browserify(entry, { transform: babelify })
         .bundle()
   return bundler
     .pipe(source('index.js'))
