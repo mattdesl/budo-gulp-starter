@@ -1,6 +1,4 @@
 const argv = require('minimist')(process.argv.slice(2))
-const openURL = require('opn')
-const once = require('once')
 
 const gulp = require('gulp')
 const sass = require('gulp-sass')
@@ -12,9 +10,9 @@ const source = require('vinyl-source-stream')
 const budo = require('budo')
 const browserify = require('browserify')
 const resetCSS = require('node-reset-scss').includePath
-const garnish = require('garnish')
-const babelify = require('babelify')
-const errorify = require('errorify')
+const babelify = require('babelify').configure({
+  presets: ['es2015'] 
+})
 
 const entry = './src/index.js'
 const outfile = 'bundle.js'
@@ -23,10 +21,9 @@ const outfile = 'bundle.js'
 gulp.task('sass', function() {
   gulp.src('./src/sass/main.scss')
     .pipe(sass({ 
-      errLogToConsole: true,
       outputStyle: argv.production ? 'compressed' : undefined,
       includePaths: [ resetCSS ] 
-    }))
+    }).on('error', sass.logError))
     .pipe(gulp.dest('./app'))
 })
 
@@ -35,30 +32,17 @@ gulp.task('watch', ['sass'], function(cb) {
   //watch SASS
   gulp.watch('src/sass/*.scss', ['sass'])
 
-  var ready = function(){}
-  var pretty = garnish()
-  pretty.pipe(process.stdout)
-
   //dev server
   budo(entry, {
-    serve: 'bundle.js',    //end point for our <script> tag
-    stream: pretty,        //pretty-print requests
-    live: true,            //live reload & CSS injection
-    verbose: true,         //verbose watchify logging
-    dir: 'app',            //directory to serve
-    transform: babelify,   //browserify transforms
-    plugin: errorify       //display errors in browser
-  })
-  .on('exit', cb)
-  .on('connect', function(ev) {
-    ready = once(openURL.bind(null, ev.uri))
-  })
-  .once('update', function() {
-    //open the browser
-    if (argv.open) {
-      ready()
+    serve: 'bundle.js',     // end point for our <script> tag
+    stream: process.stdout, // pretty-print requests
+    live: true,             // live reload & CSS injection
+    dir: 'app',             // directory to serve
+    open: argv.open,        // whether to open the browser
+    browserify: {
+      transform: babelify   //browserify transforms
     }
-  })
+  }).on('exit', cb)
 })
 
 //the distribution bundle task

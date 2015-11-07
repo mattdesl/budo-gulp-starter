@@ -9,13 +9,15 @@ A "starter kit" with [budō](https://github.com/mattdesl/budo), SASS, and Gulp. 
 Some highlights:
 
   - npm dependencies with browserify
-  - fast incremental bundling with watchify
   - SASS for CSS pre-processing
-  - LiveReload browser refresh on `bundle.js` update
-  - LiveReload CSS injection on *.scss changes
-  - Babel for ES6 transpiling
-  - Syntax errors shown in the browser during development
-
+  - Babel for ES2015 transpiling
+  - All the goodies of [budo](https://github.com/mattdesl/budo):
+    - Fast incremental bundling with watchify
+    - Pretty-printed HTTP logging
+    - Syntax errors reported in the browser
+    - LiveReload browser refresh on `bundle.js` update
+    - LiveReload CSS injection on *.scss changes
+  
 Note that budō is not tied to Gulp, and in some cases it may be easier to use it's command-line version. 
 
 ## Usage
@@ -29,6 +31,9 @@ npm install
 
 # start development server & open browser
 npm run open
+
+# or, just start dev server
+npm start
 ```
 
 This should run the watch server and open `localhost:9966` in your default browser. Changes to `src/index.js` will trigger a incremental bundle and page reload. Changes to `src/sass/main.scss` will cause CSS injection without losing application state. 
